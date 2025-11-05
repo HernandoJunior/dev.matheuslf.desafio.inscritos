@@ -1,4 +1,4 @@
-package dev.matheuslf.desafio.inscritos.dto;
+package dev.matheuslf.desafio.inscritos.dto.projectDtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,8 +17,8 @@ public record ProjectCreateDto (
         )
         String description,
 
-        @NotNull
-        LocalDate startDate,
+        @NotBlank
+        String startDate,
 
         LocalDate endDate
 ) {

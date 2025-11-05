@@ -1,4 +1,12 @@
-package dev.matheuslf.desafio.inscritos.dto;
+package dev.matheuslf.desafio.inscritos.dto.projectDtos;
 
-public record ProjectUpdateDto() {
+import java.time.LocalDate;
+
+public record ProjectUpdateDto(
+        Long id,
+        String name,
+        String description,
+        LocalDate startDate,
+        LocalDate endDate
+) {
 }

@@ -1,4 +1,4 @@
-package dev.matheuslf.desafio.inscritos.dto;
+package dev.matheuslf.desafio.inscritos.dto.projectDtos;
 
 import dev.matheuslf.desafio.inscritos.model.Project;
 

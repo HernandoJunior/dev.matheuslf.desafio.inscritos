@@ -1,4 +1,31 @@
 package dev.matheuslf.desafio.inscritos.dto;
 
-public class TaskResponseDto {
+import dev.matheuslf.desafio.inscritos.model.PriorityTask;
+import dev.matheuslf.desafio.inscritos.model.Project;
+import dev.matheuslf.desafio.inscritos.model.StatusTask;
+import dev.matheuslf.desafio.inscritos.model.Task;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
+public record TaskResponseDto (
+     Long id,
+     String title,
+     String description,
+     StatusTask status,
+     PriorityTask priority,
+     LocalDate dueDate,
+     String projectName
+){
+    public TaskResponseDto(Task task) {
+        this(
+                task.getId(),
+                task.getTitle(),
+                task.getDescription(),
+                task.getStatus(),
+                task.getPriority(),
+                task.getDueDate(),
+                task.getProject().getName()
+        );
+    }
 }
