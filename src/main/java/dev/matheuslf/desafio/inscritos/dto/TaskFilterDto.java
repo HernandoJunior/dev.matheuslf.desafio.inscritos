@@ -1,13 +1,11 @@
 package dev.matheuslf.desafio.inscritos.dto;
 
 
+import dev.matheuslf.desafio.inscritos.model.PriorityTask;
+import dev.matheuslf.desafio.inscritos.model.StatusTask;
+
 public record TaskFilterDto(
-        String status,
-        String priority,
-        Long id,
-        String title,
-        String description,
-        String dueDate,
-        String projectName,
+        StatusTask status,
+        PriorityTask priority,
         Long projectId
 ) {}

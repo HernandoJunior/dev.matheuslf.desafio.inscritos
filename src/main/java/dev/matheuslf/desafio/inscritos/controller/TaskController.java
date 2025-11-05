@@ -3,6 +3,7 @@ package dev.matheuslf.desafio.inscritos.controller;
 import dev.matheuslf.desafio.inscritos.dto.TaskCreateDto;
 import dev.matheuslf.desafio.inscritos.dto.TaskFilterDto;
 import dev.matheuslf.desafio.inscritos.dto.TaskResponseDto;
+import dev.matheuslf.desafio.inscritos.dto.TaskUpdateDto;
 import dev.matheuslf.desafio.inscritos.model.PriorityTask;
 import dev.matheuslf.desafio.inscritos.model.StatusTask;
 import dev.matheuslf.desafio.inscritos.repository.TaskRepository;
@@ -24,28 +25,43 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    //Posts
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskResponseDto createTask(@RequestBody @Valid TaskCreateDto taskCreateDto) {
         return taskService.tasksCreate(taskCreateDto);
     }
 
-    //Getters
-    @GetMapping
+    //Puts
+    @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TaskResponseDto> getTasks(TaskFilterDto taskFilterDto){
-        return taskService.getTasksWithFilters(taskFilterDto);
+    public TaskResponseDto attTask(@RequestParam StatusTask status,
+                                   @RequestParam Long id){
+        return taskService.atualizeTask(status, id);
     }
 
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<TaskResponseDto> listTasks(){
-//        return taskService.taskList();
-//    }
+    //Getters
+    @GetMapping("/list")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskResponseDto> getTasks(){
+        return taskService.taskList();
+    }
 
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskResponseDto> getTasks(
+            @RequestParam(required = false) StatusTask status,
+            @RequestParam(required = false) PriorityTask priority,
+            @RequestParam(required = false) Long projectId
+    ) {
+        TaskFilterDto filter = new TaskFilterDto(status, priority, projectId);
+        return taskService.getTasksWithFilters(filter);
+    }
+
+    //Delete
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity.BodyBuilder deleteTask(@RequestParam Long id){
+    public ResponseEntity<String> deleteTask(@PathVariable Long id){
         return taskService.deleteById(id);
     }
 }

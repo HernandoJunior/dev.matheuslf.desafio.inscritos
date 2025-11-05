@@ -15,7 +15,7 @@ public record TaskResponseDto (
      StatusTask status,
      PriorityTask priority,
      LocalDate dueDate,
-     String projectName
+     Project project
 ){
     public TaskResponseDto(Task task) {
         this(
@@ -25,7 +25,7 @@ public record TaskResponseDto (
                 task.getStatus(),
                 task.getPriority(),
                 task.getDueDate(),
-                task.getProject().getName()
+                task.getProject()
         );
     }
 }
