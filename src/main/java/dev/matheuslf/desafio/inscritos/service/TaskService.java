@@ -31,7 +31,8 @@ public class TaskService {
     private TaskMapper taskMapper;
 
     public TaskResponseDto tasksCreate(TaskCreateDto taskCreateDto){
-        Project project = projectRepository.findById(Long.parseLong(taskCreateDto.projectId())).get();
+        Project project = projectRepository.findById(Long.parseLong(taskCreateDto.projectId()))
+                .orElseThrow();
 
         Task task = taskMapper.toEntityTask(taskCreateDto);
 

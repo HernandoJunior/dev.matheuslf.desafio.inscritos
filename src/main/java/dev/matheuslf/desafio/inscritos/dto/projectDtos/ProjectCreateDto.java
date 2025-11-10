@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record ProjectCreateDto (
-        @NotBlank
+        @NotBlank(message = "Preenchimento do nome é obrigatorio")
         String name,
 
         @Size(

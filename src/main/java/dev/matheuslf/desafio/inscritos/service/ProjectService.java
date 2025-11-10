@@ -28,6 +28,12 @@ public class ProjectService {
         project.setStartDate(LocalDate.parse(projectCreateDto.startDate()));
         Project projectSaved = projectRepository.save(project);
 
+        if (projectSaved.toString().isEmpty()){
+            throw new RuntimeException(
+                    "Ocorreu um erro ao adicionar o projeto."
+            );
+        }
+
         return new ProjectResponseDto(projectSaved);
     }
 
@@ -39,6 +45,11 @@ public class ProjectService {
     }
 
     public List<ProjectResponseDto> projectsList (){
+        List<ProjectResponseDto> projectResponseDtos = projectMapper.toResponseDto(projectRepository.findAll());
+
+        if (projectResponseDtos.isEmpty()){
+            throw new  RuntimeException("A lista de projetos está vazia. Adicione um projeto.");
+        }
         return projectMapper.toResponseDto(projectRepository.findAll());
     }
 }
