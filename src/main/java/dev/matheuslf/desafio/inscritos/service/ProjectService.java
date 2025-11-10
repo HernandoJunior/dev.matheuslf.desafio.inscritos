@@ -20,11 +20,8 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    private final ProjectMapper projectMapper;
-
-    public ProjectService(ProjectMapper  projectMapper){
-        this.projectMapper = projectMapper;
-    }
+    @Autowired
+    private ProjectMapper projectMapper;
 
     public ProjectResponseDto projectCreate (ProjectCreateDto projectCreateDto){
         Project project = projectMapper.toEntity(projectCreateDto);

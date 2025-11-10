@@ -20,6 +20,6 @@ public record ProjectCreateDto (
         @NotBlank
         String startDate,
 
-        LocalDate endDate
+        String endDate
 ) {
 }

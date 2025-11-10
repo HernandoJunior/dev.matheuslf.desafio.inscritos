@@ -27,11 +27,8 @@ public class TaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    private final TaskMapper taskMapper;
-
-    public TaskService(TaskMapper taskMapper){
-        this.taskMapper = taskMapper;
-    }
+    @Autowired
+    private TaskMapper taskMapper;
 
     public TaskResponseDto tasksCreate(TaskCreateDto taskCreateDto){
         Project project = projectRepository.findById(Long.parseLong(taskCreateDto.projectId())).get();
@@ -87,6 +84,5 @@ public class TaskService {
 
         return ResponseEntity.ok("Task deletada com sucesso!");
     }
-
-
+    
 }
