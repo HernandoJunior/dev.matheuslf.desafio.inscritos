@@ -1,4 +1,4 @@
-package dev.matheuslf.desafio.inscritos.dto;
+package dev.matheuslf.desafio.inscritos.dto.taskDtos;
 
 import dev.matheuslf.desafio.inscritos.model.StatusTask;
 

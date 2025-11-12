@@ -1,11 +1,10 @@
 package dev.matheuslf.desafio.inscritos.service;
 
-import dev.matheuslf.desafio.inscritos.dto.TaskCreateDto;
-import dev.matheuslf.desafio.inscritos.dto.TaskFilterDto;
+import dev.matheuslf.desafio.inscritos.dto.taskDtos.TaskFilterDto;
+import dev.matheuslf.desafio.inscritos.dto.taskDtos.TaskCreateDto;
 import dev.matheuslf.desafio.inscritos.dto.TaskResponseDto;
-import dev.matheuslf.desafio.inscritos.dto.TaskUpdateDto;
+import dev.matheuslf.desafio.inscritos.dto.taskDtos.TaskUpdateDto;
 import dev.matheuslf.desafio.inscritos.mappers.TaskMapper;
-import dev.matheuslf.desafio.inscritos.model.PriorityTask;
 import dev.matheuslf.desafio.inscritos.model.Project;
 import dev.matheuslf.desafio.inscritos.model.StatusTask;
 import dev.matheuslf.desafio.inscritos.model.Task;
@@ -70,7 +69,13 @@ public class TaskService {
     }
 
     public List<TaskResponseDto> taskList(){
-        return taskMapper.toResponseTaskDto(taskRepository.findAll());
+        List<TaskResponseDto> taskResponseDtoList = taskMapper.toResponseTaskDto(taskRepository.findAll());
+
+        if (taskResponseDtoList.isEmpty()){
+            throw new  RuntimeException("A lista de Tasks está vazia. Adicione uma task.");
+        }
+
+        return taskResponseDtoList;
     }
 
     public ResponseEntity<String> deleteById(Long id){

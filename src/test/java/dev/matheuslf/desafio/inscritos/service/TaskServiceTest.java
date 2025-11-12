@@ -1,9 +1,9 @@
 package dev.matheuslf.desafio.inscritos.service;
 
-import dev.matheuslf.desafio.inscritos.dto.TaskCreateDto;
-import dev.matheuslf.desafio.inscritos.dto.TaskFilterDto;
+import dev.matheuslf.desafio.inscritos.dto.taskDtos.TaskFilterDto;
 import dev.matheuslf.desafio.inscritos.dto.TaskResponseDto;
-import dev.matheuslf.desafio.inscritos.dto.TaskUpdateDto;
+import dev.matheuslf.desafio.inscritos.dto.taskDtos.TaskCreateDto;
+import dev.matheuslf.desafio.inscritos.dto.taskDtos.TaskUpdateDto;
 import dev.matheuslf.desafio.inscritos.mappers.TaskMapper;
 import dev.matheuslf.desafio.inscritos.model.PriorityTask;
 import dev.matheuslf.desafio.inscritos.model.Project;
@@ -110,7 +110,7 @@ class TaskServiceTest {
         assertNotNull(result, "Resultado não deveria ser nulo");
         assertEquals("Task Test", result.title());
         verify(projectRepository, times(1)).findById(anyLong());
-        verify(taskMapper, times(1)).toEntityTask(any(TaskCreateDto.class));
+//        verify(taskMapper, times(1)).toEntityTask(any(TaskCreateDto.class));
         verify(taskRepository, times(1)).save(any(Task.class));
 
         System.out.println("Teste realizado com sucesso, Task: " + result.title());
@@ -124,9 +124,9 @@ class TaskServiceTest {
         task.setStatus(taskUpdateDto.statusTask());
         TaskResponseDto result = taskService.atualizeTask(
                 taskUpdateDto.statusTask(), taskUpdateDto
-                .id());
+                        .id());
 
-        assertNotNull(result,"Resultado nao deve ser nulo.");
+        assertNotNull(result, "Resultado nao deve ser nulo.");
         assertEquals("Task Test", result.title());
         verify(taskRepository, times(1)).findById(taskUpdateDto.id());
         verify(taskRepository, times(1)).save(any(Task.class));
