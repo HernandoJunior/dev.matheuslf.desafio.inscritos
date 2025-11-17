@@ -18,6 +18,7 @@ API RESTful desenvolvida em Java com Spring Boot para gerenciar projetos e taref
 ## 🎯 Sobre o Projeto
 
 Sistema desenvolvido para gerenciar projetos e suas respectivas tarefas, permitindo:
+- Criacao de usuario básico para gerenciamento dos projetos
 - Criação e listagem de projetos
 - Gerenciamento completo de tarefas (CRUD)
 - Filtros avançados por status, prioridade e projeto
@@ -32,8 +33,7 @@ Sistema desenvolvido para gerenciar projetos e suas respectivas tarefas, permiti
 - **Spring Validation**
 
 ### Banco de Dados
-- **H2 Database** (desenvolvimento)
-- **PostgreSQL** (produção - opcional)
+- **H2 Database** (memória)
 
 ### Documentação
 - **Swagger/OpenAPI 3.0**
@@ -51,20 +51,16 @@ Sistema desenvolvido para gerenciar projetos e suas respectivas tarefas, permiti
 ### Extras
 - **MapStruct** (mapeamento de DTOs)
 - **Lombok** (redução de boilerplate)
+- **BCrypt** (hash de password)
+- **JWT** (implementaçao de segurança básica)
 
-## 📦 Pré-requisitos
-
-- Java 17 ou superior
-- Maven 3.6+
-- Docker e Docker Compose (opcional)
 
 ## 🔧 Instalação e Execução
 
 ### Opção 1: Com Docker (Recomendado)
 ```bash
 # Clone o repositório
-git clone <seu-repositorio>
-cd <nome-do-projeto>
+git clone <git@github.com:HernandoJunior/dev.matheuslf.desafio.inscritos.git>
 
 # Execute com Docker Compose
 docker-compose up -d
@@ -75,8 +71,7 @@ docker-compose up -d
 ### Opção 2: Localmente com Maven
 ```bash
 # Clone o repositório
-git clone <seu-repositorio>
-cd <nome-do-projeto>
+git clone <git@github.com:HernandoJunior/dev.matheuslf.desafio.inscritos.git>
 
 # Compile o projeto
 mvn clean install
@@ -102,6 +97,13 @@ Após iniciar a aplicação, acesse:
 
 ### Endpoints Principais
 
+#### User
+
+| Método | Endpoint      | Descrição                |
+|--------|---------------|--------------------------|
+| POST   | `/user`       | Criar novo usuario       |
+| POST   | `/user/login` | Login e geracao de token |
+
 #### Projetos
 
 | Método | Endpoint | Descrição |
@@ -125,16 +127,28 @@ Após iniciar a aplicação, acesse:
 
 ### Exemplos de Requisições
 
+#### Criar Usuario
+```json
+POST /user
+Content-Type: application/json
+
+{
+  "login": "test1234",
+  "email": "test@email.com",
+  "password": "test123"
+}
+```
+
 #### Criar Projeto
 ```json
 POST /api/projects
 Content-Type: application/json
 
 {
-  "name": "Sistema de Vendas",
-  "description": "Desenvolvimento do sistema de vendas online",
-  "startDate": "2025-01-01",
-  "endDate": "2025-12-31"
+  "name": "Gerenciador de Projetos e Tarefas",
+  "description": "Desenvolvimento do sistema de projetos online",
+  "startDate": "2025-11-10",
+  "endDate": "2025-11-17"
 }
 ```
 
@@ -159,6 +173,16 @@ GET /api/tasks?status=TODO&priority=HIGH&projectId=1
 ```
 
 ## 💾 Modelagem de Dados
+
+### Entidade Project
+```java
+{
+  "id": "Long",
+  "login": "String - Obrigatório",
+  "password": "String - Obrigatório",
+  "email": "String - Obrigatório"
+}
+```
 
 ### Entidade Project
 ```java
@@ -202,11 +226,6 @@ mvn test
 mvn verify
 ```
 
-### Cobertura de Testes
-```bash
-mvn clean test jacoco:report
-# Relatório gerado em: target/site/jacoco/index.html
-```
 
 ## 📁 Estrutura do Projeto
 ```
@@ -237,7 +256,6 @@ src/
 
 ### Banco de Dados
 - **H2**: Utilizado para facilitar o desenvolvimento e execução local sem dependências externas
-- **Caminho**: Configurado para `/data/db` com persistência em arquivo
 - **Console H2**: Disponível em `/h2-console` para inspeção durante desenvolvimento
 
 ### Validações
