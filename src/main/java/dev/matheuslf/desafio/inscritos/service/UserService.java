@@ -47,12 +47,12 @@ public class UserService {
         return ResponseEntity.ok("Usuario cadastrado com sucesso!");
     }
 
-    public ResponseEntity<String> login(UserLoginDto userLoginDto){
+    public UserResponseDto login(UserLoginDto userLoginDto){
         var usernamePassword = new UsernamePasswordAuthenticationToken(userLoginDto.login(), userLoginDto.password());
         var auth = authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken( (User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new UserResponseDto(token).toString());
+        return new UserResponseDto(token);
     }
 }

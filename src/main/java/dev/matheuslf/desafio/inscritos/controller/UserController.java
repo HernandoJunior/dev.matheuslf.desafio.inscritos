@@ -2,6 +2,7 @@ package dev.matheuslf.desafio.inscritos.controller;
 
 import dev.matheuslf.desafio.inscritos.dto.userDto.UserCreateDto;
 import dev.matheuslf.desafio.inscritos.dto.userDto.UserLoginDto;
+import dev.matheuslf.desafio.inscritos.dto.userDto.UserResponseDto;
 import dev.matheuslf.desafio.inscritos.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,7 +31,7 @@ public class UserController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Login do usuário", description = "Login realizado pelo usuário para acesso aos projetos e tasks")
-    public ResponseEntity<String> loginUser(
+    public UserResponseDto loginUser(
             @RequestBody
             @Valid UserLoginDto userLoginDto
     ){
